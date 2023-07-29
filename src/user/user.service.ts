@@ -49,7 +49,6 @@ export class UserService {
   update(id: string, updateUserDto: UpdatePasswordDto) {
     const user = this.Users.find((user) => user.id === id);
     if (user) {
-      console.log(user, updateUserDto.oldPassword);
       if (user.password !== updateUserDto.oldPassword) {
         throw new ForbiddenException(
           `Old password is wrong for user with id ${id}`,
