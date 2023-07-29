@@ -3,30 +3,33 @@ import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
 import { Artist } from './entities/artist.entity';
 import { v4 as uuidv4 } from 'uuid';
-
-const Artists: Artist[] = [];
+import { DbService } from 'src/db/db.service';
 
 @Injectable()
 export class ArtistService {
+  constructor(private readonly db: DbService) {}
+
+  private Artists: Artist[] = this.db.artists;
+
   create(createArtistDto: CreateArtistDto) {
     const newArtist: Artist = {
       id: uuidv4(),
       ...createArtistDto,
     };
-    Artists.push(newArtist);
+    this.Artists.push(newArtist);
     return newArtist;
   }
 
   findAll() {
-    return Artists;
+    return this.Artists;
   }
 
   findOne(id: string) {
-    return Artists.find((artist) => artist.id === id);
+    return this.Artists.find((artist) => artist.id === id);
   }
 
   update(id: string, updateArtistDto: UpdateArtistDto) {
-    const artist = Artists.find((artist) => artist.id === id);
+    const artist = this.Artists.find((artist) => artist.id === id);
     if (artist) {
       artist.name = updateArtistDto.name;
       artist.grammy = updateArtistDto.grammy;
@@ -35,13 +38,13 @@ export class ArtistService {
   }
 
   remove(id: string) {
-    const indexArtist = Artists.findIndex((artist) => artist.id === id);
+    const indexArtist = this.Artists.findIndex((artist) => artist.id === id);
     if (indexArtist == -1) {
       throw new NotFoundException({
         message: `Artist with id ${id} is not found`,
       });
     }
-    Artists.splice(indexArtist, 1);
+    this.Artists.splice(indexArtist, 1);
     return;
   }
 }

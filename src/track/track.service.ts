@@ -3,30 +3,33 @@ import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
 import { Track } from './entities/track.entity';
 import { v4 as uuidv4 } from 'uuid';
-
-const Tracks: Track[] = [];
+import { DbService } from 'src/db/db.service';
 
 @Injectable()
 export class TrackService {
+  constructor(private readonly db: DbService) {}
+
+  private Tracks: Track[] = this.db.tracks;
+
   create(createTrackDto: CreateTrackDto) {
     const newTrack: Track = {
       id: uuidv4(),
       ...createTrackDto,
     };
-    Tracks.push(newTrack);
+    this.Tracks.push(newTrack);
     return newTrack;
   }
 
   findAll() {
-    return Tracks;
+    return this.Tracks;
   }
 
   findOne(id: string) {
-    return Tracks.find((track) => track.id === id);
+    return this.Tracks.find((track) => track.id === id);
   }
 
   update(id: string, updateTrackDto: UpdateTrackDto) {
-    const track = Tracks.find((track) => track.id === id);
+    const track = this.Tracks.find((track) => track.id === id);
     if (track) {
       track.name = updateTrackDto.name;
       track.albumId = updateTrackDto.albumId;
@@ -37,13 +40,13 @@ export class TrackService {
   }
 
   remove(id: string) {
-    const indexTrack = Tracks.findIndex((track) => track.id === id);
+    const indexTrack = this.Tracks.findIndex((track) => track.id === id);
     if (indexTrack == -1) {
       throw new NotFoundException({
         message: `Track with id ${id} is not found`,
       });
     }
-    Tracks.splice(indexTrack, 1);
+    this.Tracks.splice(indexTrack, 1);
     return;
   }
 }

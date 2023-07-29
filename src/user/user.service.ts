@@ -7,6 +7,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { v4 as uuidv4 } from 'uuid';
+import { DbService } from 'src/db/db.service';
 
 const stripPassword = (user: User) => {
   const clone = Object.assign({}, user);
@@ -16,7 +17,9 @@ const stripPassword = (user: User) => {
 
 @Injectable()
 export class UserService {
-  private Users: User[] = [];
+  constructor(private readonly db: DbService) {}
+
+  private Users: User[] = this.db.users;
 
   create(createUserDto: CreateUserDto) {
     const newUser: User = {
