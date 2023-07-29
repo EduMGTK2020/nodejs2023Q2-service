@@ -35,13 +35,13 @@ export class ArtistService {
   }
 
   remove(id: string) {
-    const indexUser = this.Artists.findIndex((artist) => artist.id === id);
-    if (indexUser == -1) {
+    const indexArtist = this.Artists.findIndex((artist) => artist.id === id);
+    if (indexArtist == -1) {
       throw new NotFoundException({
-        message: `User with id ${id} is not found`,
+        message: `Artist with id ${id} is not found`,
       });
     }
-    this.Artists.splice(indexUser, 1);
+    this.Artists.splice(indexArtist, 1);
     return;
   }
 }
