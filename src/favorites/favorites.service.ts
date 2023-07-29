@@ -1,13 +1,13 @@
 import {
   Injectable,
   UnprocessableEntityException,
-  Inject,
   NotFoundException,
 } from '@nestjs/common';
 import { Favorite } from './entities/favorite.entity';
 import { TrackService } from 'src/track/track.service';
 import { AlbumService } from 'src/album/album.service';
 import { ArtistService } from 'src/artist/artist.service';
+import { DbService } from 'src/db/db.service';
 
 @Injectable()
 export class FavoritesService {
@@ -15,25 +15,13 @@ export class FavoritesService {
     private readonly trackService: TrackService,
     private readonly albumService: AlbumService,
     private readonly artistService: ArtistService,
+    private readonly dbService: DbService,
   ) {}
 
-  private Favorites: Favorite = {
-    artists: [],
-    albums: [],
-    tracks: [],
-  };
-
-  // create() {
-  //   return 'This action adds a new favorite';
-  // }
+  private Favorites: Favorite = this.dbService.favorites;
 
   findAll() {
-    //return this.Favorites;
-    return {
-      artists: Array.from(this.Favorites.artists.values()),
-      albums: Array.from(this.Favorites.albums.values()),
-      tracks: Array.from(this.Favorites.tracks.values()),
-    };
+    return this.Favorites;
   }
 
   addTrackToFavorites(id: string) {
@@ -83,9 +71,8 @@ export class FavoritesService {
         message: `Artist with id ${id} is not favorite`,
       });
     }
-    this.Favorites.artists.splice(indexArtist, 1);
 
-    console.log(this.Favorites);
+    this.Favorites.artists.splice(indexArtist, 1);
   }
 
   addAlbumToFavorites(id: string) {

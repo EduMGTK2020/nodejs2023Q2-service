@@ -4,6 +4,8 @@ import { UpdateArtistDto } from './dto/update-artist.dto';
 import { Artist } from './entities/artist.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { DbService } from 'src/db/db.service';
+import { Track } from 'src/track/entities/track.entity';
+import { Album } from 'src/album/entities/album.entity';
 
 @Injectable()
 export class ArtistService {
@@ -45,6 +47,21 @@ export class ArtistService {
       });
     }
     this.Artists.splice(indexArtist, 1);
+
+    this.db.tracks.map((item) => {
+      const track = item as Track;
+      if (track.artistId == id) {
+        track.artistId = null;
+      }
+    });
+
+    this.db.albums.map((item) => {
+      const album = item as Album;
+      if (album.artistId == id) {
+        album.artistId = null;
+      }
+    });
+
     return;
   }
 }
