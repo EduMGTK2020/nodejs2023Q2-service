@@ -25,7 +25,6 @@ export class FavoritesService {
   }
 
   addTrackToFavorites(id: string) {
-    console.log('addTrackToFavorites');
     const track = this.trackService.findOne(id);
     if (!track) {
       throw new UnprocessableEntityException({
@@ -37,7 +36,6 @@ export class FavoritesService {
   }
 
   removeTrackFromFavorites(id: string) {
-    console.log('removeTrackFromFavorites');
     const indexTrack = this.Favorites.tracks.findIndex(
       (track) => track.id === id,
     );
@@ -50,7 +48,6 @@ export class FavoritesService {
   }
 
   addArtistToFavorites(id: string) {
-    console.log('addArtistToFavorites');
     const artist = this.artistService.findOne(id);
     if (!artist) {
       throw new UnprocessableEntityException({
@@ -62,7 +59,6 @@ export class FavoritesService {
   }
 
   removeArtistFromFavorites(id: string) {
-    console.log('removeArtistFromFavorites');
     const indexArtist = this.Favorites.artists.findIndex(
       (artist) => artist.id === id,
     );
@@ -76,7 +72,6 @@ export class FavoritesService {
   }
 
   addAlbumToFavorites(id: string) {
-    console.log('addAlbumToFavorites');
     const album = this.albumService.findOne(id);
     if (!album) {
       throw new UnprocessableEntityException({
@@ -88,7 +83,6 @@ export class FavoritesService {
   }
 
   removeAlbumFromFavorites(id: string) {
-    console.log('removeAlbumFromFavorites');
     const indexAlbum = this.Favorites.albums.findIndex(
       (album) => album.id === id,
     );

@@ -47,12 +47,21 @@ export class AlbumService {
       });
     }
     this.Albums.splice(indexAlbum, 1);
+
     this.db.tracks.map((item) => {
       const track = item as Track;
       if (track.albumId == id) {
         track.albumId = null;
       }
     });
+
+    const index = this.db.favorites.albums.findIndex(
+      (album) => album.id === id,
+    );
+    if (index != -1) {
+      this.db.favorites.albums.splice(index, 1);
+    }
+
     return;
   }
 }

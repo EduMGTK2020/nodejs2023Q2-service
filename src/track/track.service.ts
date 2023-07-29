@@ -46,7 +46,15 @@ export class TrackService {
         message: `Track with id ${id} is not found`,
       });
     }
+
     this.Tracks.splice(indexTrack, 1);
+
+    const index = this.db.favorites.tracks.findIndex(
+      (track) => track.id === id,
+    );
+    if (index != -1) {
+      this.db.favorites.tracks.splice(index, 1);
+    }
     return;
   }
 }

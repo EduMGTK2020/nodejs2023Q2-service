@@ -62,6 +62,13 @@ export class ArtistService {
       }
     });
 
+    const index = this.db.favorites.artists.findIndex(
+      (artist) => artist.id === id,
+    );
+    if (index != -1) {
+      this.db.favorites.artists.splice(index, 1);
+    }
+
     return;
   }
 }
