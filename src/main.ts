@@ -19,9 +19,8 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Home Library Service')
-    .setDescription('Home music library service')
+    .setDescription('Task #7: Implementation Home Library Service: Part 1')
     .setVersion('1.0.0')
-    .addTag('hls')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/doc', app, document, {
@@ -33,7 +32,7 @@ async function bootstrap() {
 
   if (GEN_DOCS === 'true') {
     const yamlDoc = yaml.dump(document, { noRefs: true });
-    await fs.promises.writeFile('doc/openapi.yml', yamlDoc);
+    await fs.promises.writeFile('doc/api.yaml', yamlDoc);
     console.log('Swagger docs generated');
   }
 
