@@ -8,64 +8,116 @@ paths:
         '200':
           description: ''
   /user:
+    get:
+      operationId: UserController_findAll
+      summary: get all users
+      parameters: []
+      responses:
+        '200':
+          description: Users successfully getted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+      tags:
+        - User
     post:
       operationId: UserController_create
+      summary: create user
       parameters: []
       requestBody:
         required: true
+        description: Data for new user
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateUserDto'
       responses:
         '201':
-          description: ''
-    get:
-      operationId: UserController_findAll
-      parameters: []
-      responses:
-        '200':
-          description: ''
+          description: User successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Request body does not contain required fields
+      tags:
+        - User
   /user/{id}:
     get:
       operationId: UserController_findOne
+      summary: get single user by id
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of user
           schema:
             type: string
       responses:
         '200':
-          description: ''
+          description: User successfully getted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: User id is invalid (not UUID)
+        '404':
+          description: User with given id not found
+      tags:
+        - User
     put:
       operationId: UserController_update
+      summary: update user password
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of user
           schema:
             type: string
       requestBody:
         required: true
+        description: Data for update user
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdatePasswordDto'
       responses:
         '200':
-          description: ''
+          description: User successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: User id is invalid (not UUID)
+        '404':
+          description: User with given id not found
+      tags:
+        - User
     delete:
       operationId: UserController_remove
+      summary: delete user
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of user
           schema:
             type: string
       responses:
         '204':
-          description: ''
+          description: User successfully deleted
+        '400':
+          description: User id is invalid (not UUID)
+        '404':
+          description: User with given id not found
+      tags:
+        - User
   /artist:
     post:
       operationId: ArtistController_create
@@ -541,12 +593,48 @@ tags:
 servers: []
 components:
   schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        login:
+          type: string
+        password:
+          type: string
+        version:
+          type: number
+        createdAt:
+          type: number
+        updatedAt:
+          type: number
+      required:
+        - id
+        - login
+        - password
+        - version
+        - createdAt
+        - updatedAt
     CreateUserDto:
       type: object
-      properties: {}
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+      required:
+        - login
+        - password
     UpdatePasswordDto:
       type: object
-      properties: {}
+      properties:
+        oldPassword:
+          type: string
+        newPassword:
+          type: string
+      required:
+        - oldPassword
+        - newPassword
     CreateArtistDto:
       type: object
       properties:
