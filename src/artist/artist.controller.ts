@@ -6,8 +6,6 @@ import {
   Put,
   Param,
   Delete,
-  UsePipes,
-  ValidationPipe,
   ParseUUIDPipe,
   NotFoundException,
   HttpCode,
@@ -21,7 +19,6 @@ export class ArtistController {
   constructor(private readonly artistService: ArtistService) {}
 
   @Post()
-  @UsePipes(new ValidationPipe())
   create(@Body() createArtistDto: CreateArtistDto) {
     return this.artistService.create(createArtistDto);
   }
@@ -41,7 +38,6 @@ export class ArtistController {
   }
 
   @Put(':id')
-  @UsePipes(new ValidationPipe())
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() updateArtistDto: UpdateArtistDto,

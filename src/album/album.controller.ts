@@ -6,8 +6,6 @@ import {
   Put,
   Param,
   Delete,
-  UsePipes,
-  ValidationPipe,
   ParseUUIDPipe,
   NotFoundException,
   HttpCode,
@@ -41,7 +39,6 @@ export class AlbumController {
   @ApiBadRequestResponse({
     description: 'Request body does not contain required fields',
   })
-  @UsePipes(new ValidationPipe())
   create(@Body() createAlbumDto: CreateAlbumDto) {
     return this.albumService.create(createAlbumDto);
   }
@@ -61,7 +58,6 @@ export class AlbumController {
   }
 
   @Put(':id')
-  @UsePipes(new ValidationPipe())
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() updateAlbumDto: UpdateAlbumDto,

@@ -8,8 +8,6 @@ import {
   Delete,
   HttpCode,
   NotFoundException,
-  UsePipes,
-  ValidationPipe,
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -21,7 +19,6 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  @UsePipes(new ValidationPipe())
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
@@ -41,7 +38,6 @@ export class UserController {
   }
 
   @Put(':id')
-  @UsePipes(new ValidationPipe())
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() updateUserDto: UpdatePasswordDto,

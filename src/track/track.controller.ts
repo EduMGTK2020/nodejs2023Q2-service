@@ -6,8 +6,6 @@ import {
   Put,
   Param,
   Delete,
-  UsePipes,
-  ValidationPipe,
   ParseUUIDPipe,
   NotFoundException,
   HttpCode,
@@ -21,7 +19,6 @@ export class TrackController {
   constructor(private readonly trackService: TrackService) {}
 
   @Post()
-  @UsePipes(new ValidationPipe())
   create(@Body() createTrackDto: CreateTrackDto) {
     return this.trackService.create(createTrackDto);
   }
@@ -41,7 +38,6 @@ export class TrackController {
   }
 
   @Put(':id')
-  @UsePipes(new ValidationPipe())
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() updateTrackDto: UpdateTrackDto,
