@@ -33,7 +33,6 @@ async function bootstrap() {
   if (GEN_DOCS === 'true') {
     const yamlDoc = yaml.dump(document, { noRefs: true });
     await fs.promises.writeFile('doc/api.yaml', yamlDoc);
-    console.log('Swagger docs generated');
   }
 
   await app.listen(port);

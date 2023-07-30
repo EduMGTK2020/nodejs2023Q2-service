@@ -10,16 +10,16 @@ export class CreateTrackDto {
   @IsString()
   @ValidateIf((object, value) => value !== null)
   @ApiProperty()
-  artistId: string | null; // refers to Artist
+  artistId: string | null;
 
   @IsString()
   @ValidateIf((object, value) => value !== null)
   @ApiProperty()
-  albumId: string | null; // refers to Album
+  albumId: string | null;
 
   @IsInt()
   @Min(1)
   @IsNotEmpty()
   @ApiProperty()
-  duration: number; // integer number
+  duration: number;
 }

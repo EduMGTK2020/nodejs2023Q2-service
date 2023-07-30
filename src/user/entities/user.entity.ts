@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class User {
   @ApiProperty()
-  id: string; // uuid v4
+  id: string;
 
   @ApiProperty()
   login: string;
@@ -11,11 +11,11 @@ export class User {
   password: string;
 
   @ApiProperty()
-  version: number; // integer number, increments on update
+  version: number;
 
   @ApiProperty()
-  createdAt: number; // timestamp of creation
+  createdAt: number;
 
   @ApiProperty()
-  updatedAt: number; // timestamp of last update
+  updatedAt: number;
 }

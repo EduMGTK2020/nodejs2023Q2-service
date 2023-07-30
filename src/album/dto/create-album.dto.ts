@@ -15,6 +15,6 @@ export class CreateAlbumDto {
 
   @IsString()
   @ValidateIf((object, value) => value !== null)
-  @ApiProperty({ description: 'refers to Artist' })
-  artistId: string | null; // refers to Artist
+  @ApiProperty()
+  artistId: string | null;
 }

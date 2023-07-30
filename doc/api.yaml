@@ -694,7 +694,6 @@ components:
           type: number
         artistId:
           type: string
-          description: refers to Artist
       required:
         - name
         - year

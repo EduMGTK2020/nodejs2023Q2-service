@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class Album {
   @ApiProperty()
-  id: string; // uuid v4
+  id: string;
 
   @ApiProperty()
   name: string;
@@ -11,5 +11,5 @@ export class Album {
   year: number;
 
   @ApiProperty()
-  artistId: string | null; // refers to Artist
+  artistId: string | null;
 }
