@@ -28,7 +28,7 @@ export class FavoritesService {
     const track = this.trackService.findOne(id);
     if (!track) {
       throw new UnprocessableEntityException({
-        message: `Track with id ${id} doesn't exist`,
+        message: `Track with id ${id} does not exist`,
       });
     }
     this.Favorites.tracks.push(track);

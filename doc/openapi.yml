@@ -350,79 +350,134 @@ paths:
   /favs:
     get:
       operationId: FavoritesController_findAll
+      summary: get all favorites
       parameters: []
       responses:
         '200':
-          description: ''
+          description: Favorites successfully getted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Favorite'
+      tags:
+        - Favorites
   /favs/track/{id}:
     post:
       operationId: FavoritesController_addTrackToFavorites
+      summary: add track to the favorites
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of track
           schema:
             type: string
       responses:
         '201':
-          description: ''
+          description: Track successfully added
+        '400':
+          description: Track id is invalid (not UUID).
+        '422':
+          description: Track with given id does not exist
+      tags:
+        - Favorites
     delete:
       operationId: FavoritesController_removeTrackFromFavorites
+      summary: delete track from favorites
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of track
           schema:
             type: string
       responses:
         '204':
-          description: ''
+          description: Track successfully deleted
+        '400':
+          description: Track id is invalid (not UUID)
+        '404':
+          description: Track with given id does not found
+      tags:
+        - Favorites
   /favs/album/{id}:
     post:
       operationId: FavoritesController_addAlbumToFavorites
+      summary: add album to the favorites
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of album
           schema:
             type: string
       responses:
         '201':
-          description: ''
+          description: Album successfully added
+        '400':
+          description: Album id is invalid (not UUID).
+        '422':
+          description: Album with given id does not exist
+      tags:
+        - Favorites
     delete:
       operationId: FavoritesController_removeAlbumFromFavorites
+      summary: delete album from favorites
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of album
           schema:
             type: string
       responses:
         '204':
-          description: ''
+          description: Album successfully deleted
+        '400':
+          description: Album id is invalid (not UUID)
+        '404':
+          description: Album with given id does not found
+      tags:
+        - Favorites
   /favs/artist/{id}:
     post:
       operationId: FavoritesController_addArtistToFavorites
+      summary: add artist to the favorites
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of artist
           schema:
             type: string
       responses:
         '201':
-          description: ''
+          description: Artist successfully added
+        '400':
+          description: Artist id is invalid (not UUID).
+        '422':
+          description: Artist with given id does not exist
+      tags:
+        - Favorites
     delete:
       operationId: FavoritesController_removeArtistFromFavorites
+      summary: delete artist from favorites
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of artist
           schema:
             type: string
       responses:
         '204':
-          description: ''
+          description: Artist successfully deleted
+        '400':
+          description: Artist id is invalid (not UUID)
+        '404':
+          description: Artist with given id does not found
+      tags:
+        - Favorites
 info:
   title: Home Library Service
   description: Home music library service
@@ -522,3 +577,22 @@ components:
     UpdateTrackDto:
       type: object
       properties: {}
+    Favorite:
+      type: object
+      properties:
+        artists:
+          type: array
+          items:
+            type: string
+        albums:
+          type: array
+          items:
+            type: string
+        tracks:
+          type: array
+          items:
+            type: string
+      required:
+        - artists
+        - albums
+        - tracks
