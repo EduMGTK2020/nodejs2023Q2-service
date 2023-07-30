@@ -12,15 +12,35 @@ import {
   NotFoundException,
   HttpCode,
 } from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+
 import { AlbumService } from './album.service';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
+import { Album } from './entities/album.entity';
 
 @Controller('album')
+@ApiTags('Album')
 export class AlbumController {
   constructor(private readonly albumService: AlbumService) {}
 
   @Post()
+  @ApiBody({
+    type: CreateAlbumDto,
+    description: 'Data for new album',
+  })
+  @ApiCreatedResponse({
+    description: 'Album successfully created',
+    type: Album,
+  })
+  @ApiBadRequestResponse({
+    description: 'Request body does not contain required fields',
+  })
   @UsePipes(new ValidationPipe())
   create(@Body() createAlbumDto: CreateAlbumDto) {
     return this.albumService.create(createAlbumDto);
