@@ -15,6 +15,11 @@ import {
   ApiBody,
   ApiCreatedResponse,
   ApiTags,
+  ApiOperation,
+  ApiOkResponse,
+  ApiParam,
+  ApiNotFoundResponse,
+  ApiNoContentResponse,
 } from '@nestjs/swagger';
 
 import { AlbumService } from './album.service';
@@ -28,6 +33,9 @@ export class AlbumController {
   constructor(private readonly albumService: AlbumService) {}
 
   @Post()
+  @ApiOperation({
+    summary: 'create new album',
+  })
   @ApiBody({
     type: CreateAlbumDto,
     description: 'Data for new album',
@@ -44,11 +52,37 @@ export class AlbumController {
   }
 
   @Get()
+  @ApiOperation({
+    summary: 'get all albums',
+  })
+  @ApiOkResponse({
+    description: 'Albums successfully getted',
+    type: [Album],
+  })
   findAll() {
     return this.albumService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'get single album by id',
+  })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'Id of album',
+    type: 'string',
+  })
+  @ApiOkResponse({
+    description: 'Album successfully getted',
+    type: Album,
+  })
+  @ApiBadRequestResponse({
+    description: 'Album id is invalid (not UUID)',
+  })
+  @ApiNotFoundResponse({
+    description: 'Album with given id does not found',
+  })
   findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     const album = this.albumService.findOne(id);
     if (!album) {
@@ -58,6 +92,27 @@ export class AlbumController {
   }
 
   @Put(':id')
+  @ApiOperation({
+    summary: 'update album info',
+  })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'Id of album',
+    type: 'string',
+  })
+  @ApiBody({
+    type: UpdateAlbumDto,
+    description: 'Data for update album',
+  })
+  @ApiOkResponse({
+    description: 'Album successfully updated',
+    type: Album,
+  })
+  @ApiBadRequestResponse({
+    description: 'Album id is invalid (not UUID)',
+  })
+  @ApiNotFoundResponse({ description: 'Album with given id not found' })
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() updateAlbumDto: UpdateAlbumDto,
@@ -70,6 +125,22 @@ export class AlbumController {
   }
 
   @Delete(':id')
+  @ApiOperation({
+    summary: 'delete album',
+  })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'Id of album',
+    type: 'string',
+  })
+  @ApiNoContentResponse({
+    description: 'Album successfully deleted',
+  })
+  @ApiBadRequestResponse({
+    description: 'Album id is invalid (not UUID)',
+  })
+  @ApiNotFoundResponse({ description: 'Album with given id not found' })
   @HttpCode(204)
   remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.albumService.remove(id);

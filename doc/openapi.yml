@@ -128,6 +128,7 @@ paths:
   /album:
     post:
       operationId: AlbumController_create
+      summary: create new album
       parameters: []
       requestBody:
         required: true
@@ -149,56 +150,90 @@ paths:
         - Album
     get:
       operationId: AlbumController_findAll
+      summary: get all albums
       parameters: []
       responses:
         '200':
-          description: ''
+          description: Albums successfully getted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Album'
       tags:
         - Album
   /album/{id}:
     get:
       operationId: AlbumController_findOne
+      summary: get single album by id
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of album
           schema:
             type: string
       responses:
         '200':
-          description: ''
+          description: Album successfully getted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Album'
+        '400':
+          description: Album id is invalid (not UUID)
+        '404':
+          description: Album with given id does not found
       tags:
         - Album
     put:
       operationId: AlbumController_update
+      summary: update album info
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of album
           schema:
             type: string
       requestBody:
         required: true
+        description: Data for update album
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateAlbumDto'
       responses:
         '200':
-          description: ''
+          description: Album successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Album'
+        '400':
+          description: Album id is invalid (not UUID)
+        '404':
+          description: Album with given id not found
       tags:
         - Album
     delete:
       operationId: AlbumController_remove
+      summary: delete album
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of album
           schema:
             type: string
       responses:
         '204':
-          description: ''
+          description: Album successfully deleted
+        '400':
+          description: Album id is invalid (not UUID)
+        '404':
+          description: Album with given id not found
       tags:
         - Album
   /track:
@@ -375,10 +410,33 @@ components:
         - artistId
     Album:
       type: object
-      properties: {}
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        year:
+          type: number
+        artistId:
+          type: string
+      required:
+        - id
+        - name
+        - year
+        - artistId
     UpdateAlbumDto:
       type: object
-      properties: {}
+      properties:
+        name:
+          type: string
+        year:
+          type: number
+        artistId:
+          type: string
+      required:
+        - name
+        - year
+        - artistId
     CreateTrackDto:
       type: object
       properties: {}
