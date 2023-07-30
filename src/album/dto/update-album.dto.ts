@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsInt, ValidateIf } from 'class-validator';
+import { IsNotEmpty, IsString, IsInt, ValidateIf, Min } from 'class-validator';
 
 export class UpdateAlbumDto {
   @IsString()
@@ -6,6 +6,7 @@ export class UpdateAlbumDto {
   name: string;
 
   @IsInt()
+  @Min(1)
   @IsNotEmpty()
   year: number;
 

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsInt, ValidateIf } from 'class-validator';
+import { IsNotEmpty, IsString, IsInt, ValidateIf, Min } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateAlbumDto {
@@ -8,6 +8,7 @@ export class CreateAlbumDto {
   name: string;
 
   @IsInt()
+  @Min(1)
   @IsNotEmpty()
   @ApiProperty()
   year: number;

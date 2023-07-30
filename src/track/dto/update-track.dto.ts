@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsInt, ValidateIf } from 'class-validator';
+import { IsNotEmpty, IsString, IsInt, ValidateIf, Min } from 'class-validator';
 
 export class UpdateTrackDto {
   @IsString()
@@ -14,6 +14,7 @@ export class UpdateTrackDto {
   albumId: string | null; // refers to Album
 
   @IsInt()
+  @Min(1)
   @IsNotEmpty()
   duration: number; // integer number
 }
