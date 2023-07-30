@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsString, IsInt, ValidateIf, Min } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsInt,
+  ValidateIf,
+  Min,
+  IsUUID,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateTrackDto {
@@ -7,14 +14,14 @@ export class UpdateTrackDto {
   @ApiProperty()
   name: string;
 
-  @IsString()
+  @IsUUID()
   @ValidateIf((object, value) => value !== null)
-  @ApiProperty()
+  @ApiProperty({ type: 'string', format: 'uuid', nullable: true })
   artistId: string | null;
 
-  @IsString()
+  @IsUUID()
   @ValidateIf((object, value) => value !== null)
-  @ApiProperty()
+  @ApiProperty({ type: 'string', format: 'uuid', nullable: true })
   albumId: string | null;
 
   @IsInt()

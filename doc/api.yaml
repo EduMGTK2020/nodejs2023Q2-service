@@ -599,6 +599,8 @@ components:
       properties:
         id:
           type: string
+          format: uuid
+          nullable: true
         login:
           type: string
         version:
@@ -638,6 +640,8 @@ components:
       properties:
         id:
           type: string
+          format: uuid
+          nullable: true
         name:
           type: string
         grammy:
@@ -671,12 +675,16 @@ components:
       properties:
         id:
           type: string
+          format: uuid
+          nullable: true
         name:
           type: string
         year:
           type: number
         artistId:
           type: string
+          format: uuid
+          nullable: true
       required:
         - id
         - name
@@ -691,6 +699,8 @@ components:
           type: number
         artistId:
           type: string
+          format: uuid
+          nullable: true
       required:
         - name
         - year
@@ -704,6 +714,8 @@ components:
           type: number
         artistId:
           type: string
+          format: uuid
+          nullable: true
       required:
         - name
         - year
@@ -713,12 +725,18 @@ components:
       properties:
         id:
           type: string
+          format: uuid
+          nullable: true
         name:
           type: string
         artistId:
           type: string
+          format: uuid
+          nullable: true
         albumId:
           type: string
+          format: uuid
+          nullable: true
         duration:
           type: number
       required:
@@ -734,8 +752,12 @@ components:
           type: string
         artistId:
           type: string
+          format: uuid
+          nullable: true
         albumId:
           type: string
+          format: uuid
+          nullable: true
         duration:
           type: number
       required:
@@ -750,8 +772,12 @@ components:
           type: string
         artistId:
           type: string
+          format: uuid
+          nullable: true
         albumId:
           type: string
+          format: uuid
+          nullable: true
         duration:
           type: number
       required:
@@ -765,15 +791,15 @@ components:
         artists:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/Artist'
         albums:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/Album'
         tracks:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/Track'
       required:
         - artists
         - albums

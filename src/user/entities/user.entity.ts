@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class User {
-  @ApiProperty()
+  @ApiProperty({ type: 'string', format: 'uuid', nullable: true })
   id: string;
 
   @ApiProperty()

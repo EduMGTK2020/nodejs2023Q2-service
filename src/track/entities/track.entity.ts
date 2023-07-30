@@ -1,16 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class Track {
-  @ApiProperty()
+  @ApiProperty({ type: 'string', format: 'uuid', nullable: true })
   id: string;
 
   @ApiProperty()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: 'string', format: 'uuid', nullable: true })
   artistId: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ type: 'string', format: 'uuid', nullable: true })
   albumId: string | null;
 
   @ApiProperty()
