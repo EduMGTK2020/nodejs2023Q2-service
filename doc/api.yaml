@@ -122,6 +122,21 @@ paths:
       tags:
         - User
   /artist:
+    get:
+      operationId: ArtistController_findAll
+      summary: get all artists
+      parameters: []
+      responses:
+        '200':
+          description: Artists successfully getted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Artist'
+      tags:
+        - Artist
     post:
       operationId: ArtistController_create
       summary: create new artist
@@ -142,21 +157,6 @@ paths:
                 $ref: '#/components/schemas/Artist'
         '400':
           description: Request body does not contain required fields
-      tags:
-        - Artist
-    get:
-      operationId: ArtistController_findAll
-      summary: get all artists
-      parameters: []
-      responses:
-        '200':
-          description: Artists successfully getted
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Artist'
       tags:
         - Artist
   /artist/{id}:
@@ -233,6 +233,21 @@ paths:
       tags:
         - Artist
   /album:
+    get:
+      operationId: AlbumController_findAll
+      summary: get all albums
+      parameters: []
+      responses:
+        '200':
+          description: Albums successfully getted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Album'
+      tags:
+        - Album
     post:
       operationId: AlbumController_create
       summary: create new album
@@ -253,21 +268,6 @@ paths:
                 $ref: '#/components/schemas/Album'
         '400':
           description: Request body does not contain required fields
-      tags:
-        - Album
-    get:
-      operationId: AlbumController_findAll
-      summary: get all albums
-      parameters: []
-      responses:
-        '200':
-          description: Albums successfully getted
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Album'
       tags:
         - Album
   /album/{id}:
@@ -344,6 +344,21 @@ paths:
       tags:
         - Album
   /track:
+    get:
+      operationId: TrackController_findAll
+      summary: get all tracks
+      parameters: []
+      responses:
+        '200':
+          description: Tracks successfully getted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Track'
+      tags:
+        - Track
     post:
       operationId: TrackController_create
       summary: create new track
@@ -364,21 +379,6 @@ paths:
                 $ref: '#/components/schemas/Track'
         '400':
           description: Request body does not contain required fields
-      tags:
-        - Track
-    get:
-      operationId: TrackController_findAll
-      summary: get all tracks
-      parameters: []
-      responses:
-        '200':
-          description: Tracks successfully getted
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Track'
       tags:
         - Track
   /track/{id}:
@@ -636,16 +636,6 @@ components:
       required:
         - oldPassword
         - newPassword
-    CreateArtistDto:
-      type: object
-      properties:
-        name:
-          type: string
-        grammy:
-          type: boolean
-      required:
-        - name
-        - grammy
     Artist:
       type: object
       properties:
@@ -659,6 +649,16 @@ components:
         - id
         - name
         - grammy
+    CreateArtistDto:
+      type: object
+      properties:
+        name:
+          type: string
+        grammy:
+          type: boolean
+      required:
+        - name
+        - grammy
     UpdateArtistDto:
       type: object
       properties:
@@ -669,20 +669,6 @@ components:
       required:
         - name
         - grammy
-    CreateAlbumDto:
-      type: object
-      properties:
-        name:
-          type: string
-        year:
-          type: number
-        artistId:
-          type: string
-          description: refers to Artist
-      required:
-        - name
-        - year
-        - artistId
     Album:
       type: object
       properties:
@@ -699,6 +685,20 @@ components:
         - name
         - year
         - artistId
+    CreateAlbumDto:
+      type: object
+      properties:
+        name:
+          type: string
+        year:
+          type: number
+        artistId:
+          type: string
+          description: refers to Artist
+      required:
+        - name
+        - year
+        - artistId
     UpdateAlbumDto:
       type: object
       properties:
@@ -712,22 +712,6 @@ components:
         - name
         - year
         - artistId
-    CreateTrackDto:
-      type: object
-      properties:
-        name:
-          type: string
-        artistId:
-          type: string
-        albumId:
-          type: string
-        duration:
-          type: number
-      required:
-        - name
-        - artistId
-        - albumId
-        - duration
     Track:
       type: object
       properties:
@@ -743,6 +727,22 @@ components:
           type: number
       required:
         - id
+        - name
+        - artistId
+        - albumId
+        - duration
+    CreateTrackDto:
+      type: object
+      properties:
+        name:
+          type: string
+        artistId:
+          type: string
+        albumId:
+          type: string
+        duration:
+          type: number
+      required:
         - name
         - artistId
         - albumId

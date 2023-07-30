@@ -32,25 +32,6 @@ import { Album } from './entities/album.entity';
 export class AlbumController {
   constructor(private readonly albumService: AlbumService) {}
 
-  @Post()
-  @ApiOperation({
-    summary: 'create new album',
-  })
-  @ApiBody({
-    type: CreateAlbumDto,
-    description: 'Data for new album',
-  })
-  @ApiCreatedResponse({
-    description: 'Album successfully created',
-    type: Album,
-  })
-  @ApiBadRequestResponse({
-    description: 'Request body does not contain required fields',
-  })
-  create(@Body() createAlbumDto: CreateAlbumDto) {
-    return this.albumService.create(createAlbumDto);
-  }
-
   @Get()
   @ApiOperation({
     summary: 'get all albums',
@@ -89,6 +70,25 @@ export class AlbumController {
       throw new NotFoundException(`Album with id ${id} not found`);
     }
     return album;
+  }
+
+  @Post()
+  @ApiOperation({
+    summary: 'create new album',
+  })
+  @ApiBody({
+    type: CreateAlbumDto,
+    description: 'Data for new album',
+  })
+  @ApiCreatedResponse({
+    description: 'Album successfully created',
+    type: Album,
+  })
+  @ApiBadRequestResponse({
+    description: 'Request body does not contain required fields',
+  })
+  create(@Body() createAlbumDto: CreateAlbumDto) {
+    return this.albumService.create(createAlbumDto);
   }
 
   @Put(':id')

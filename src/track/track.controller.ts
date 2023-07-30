@@ -32,25 +32,6 @@ import { Track } from './entities/track.entity';
 export class TrackController {
   constructor(private readonly trackService: TrackService) {}
 
-  @Post()
-  @ApiOperation({
-    summary: 'create new track',
-  })
-  @ApiBody({
-    type: CreateTrackDto,
-    description: 'Data for new track',
-  })
-  @ApiCreatedResponse({
-    description: 'Track successfully created',
-    type: Track,
-  })
-  @ApiBadRequestResponse({
-    description: 'Request body does not contain required fields',
-  })
-  create(@Body() createTrackDto: CreateTrackDto) {
-    return this.trackService.create(createTrackDto);
-  }
-
   @Get()
   @ApiOperation({
     summary: 'get all tracks',
@@ -89,6 +70,25 @@ export class TrackController {
       throw new NotFoundException(`Track with id ${id} not found`);
     }
     return track;
+  }
+
+  @Post()
+  @ApiOperation({
+    summary: 'create new track',
+  })
+  @ApiBody({
+    type: CreateTrackDto,
+    description: 'Data for new track',
+  })
+  @ApiCreatedResponse({
+    description: 'Track successfully created',
+    type: Track,
+  })
+  @ApiBadRequestResponse({
+    description: 'Request body does not contain required fields',
+  })
+  create(@Body() createTrackDto: CreateTrackDto) {
+    return this.trackService.create(createTrackDto);
   }
 
   @Put(':id')

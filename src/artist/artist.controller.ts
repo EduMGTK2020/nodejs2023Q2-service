@@ -32,25 +32,6 @@ import { Artist } from './entities/artist.entity';
 export class ArtistController {
   constructor(private readonly artistService: ArtistService) {}
 
-  @Post()
-  @ApiOperation({
-    summary: 'create new artist',
-  })
-  @ApiBody({
-    type: CreateArtistDto,
-    description: 'Data for new artist',
-  })
-  @ApiCreatedResponse({
-    description: 'Artist successfully created',
-    type: Artist,
-  })
-  @ApiBadRequestResponse({
-    description: 'Request body does not contain required fields',
-  })
-  create(@Body() createArtistDto: CreateArtistDto) {
-    return this.artistService.create(createArtistDto);
-  }
-
   @Get()
   @ApiOperation({
     summary: 'get all artists',
@@ -89,6 +70,25 @@ export class ArtistController {
       throw new NotFoundException(`Artist with id ${id} not found`);
     }
     return artist;
+  }
+
+  @Post()
+  @ApiOperation({
+    summary: 'create new artist',
+  })
+  @ApiBody({
+    type: CreateArtistDto,
+    description: 'Data for new artist',
+  })
+  @ApiCreatedResponse({
+    description: 'Artist successfully created',
+    type: Artist,
+  })
+  @ApiBadRequestResponse({
+    description: 'Request body does not contain required fields',
+  })
+  create(@Body() createArtistDto: CreateArtistDto) {
+    return this.artistService.create(createArtistDto);
   }
 
   @Put(':id')
