@@ -601,8 +601,6 @@ components:
           type: string
         login:
           type: string
-        password:
-          type: string
         version:
           type: number
         createdAt:
@@ -612,7 +610,6 @@ components:
       required:
         - id
         - login
-        - password
         - version
         - createdAt
         - updatedAt
