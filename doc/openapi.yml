@@ -291,62 +291,114 @@ paths:
   /track:
     post:
       operationId: TrackController_create
+      summary: create new track
       parameters: []
       requestBody:
         required: true
+        description: Data for new track
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateTrackDto'
       responses:
         '201':
-          description: ''
+          description: Track successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Track'
+        '400':
+          description: Request body does not contain required fields
+      tags:
+        - Track
     get:
       operationId: TrackController_findAll
+      summary: get all tracks
       parameters: []
       responses:
         '200':
-          description: ''
+          description: Tracks successfully getted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Track'
+      tags:
+        - Track
   /track/{id}:
     get:
       operationId: TrackController_findOne
+      summary: get single track by id
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of track
           schema:
             type: string
       responses:
         '200':
-          description: ''
+          description: Track successfully getted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Track'
+        '400':
+          description: Track id is invalid (not UUID)
+        '404':
+          description: Track with given id not found
+      tags:
+        - Track
     put:
       operationId: TrackController_update
+      summary: update album track
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of track
           schema:
             type: string
       requestBody:
         required: true
+        description: Data for update album
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateTrackDto'
       responses:
         '200':
-          description: ''
+          description: Track successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Track'
+        '400':
+          description: Track id is invalid (not UUID)
+        '404':
+          description: Track with given id not found
+      tags:
+        - Track
     delete:
       operationId: TrackController_remove
+      summary: delete track
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of track
           schema:
             type: string
       responses:
         '204':
-          description: ''
+          description: Track successfully deleted
+        '400':
+          description: Track id is invalid (not UUID)
+        '404':
+          description: Track with given id not found
+      tags:
+        - Track
   /favs:
     get:
       operationId: FavoritesController_findAll
@@ -573,10 +625,55 @@ components:
         - artistId
     CreateTrackDto:
       type: object
-      properties: {}
+      properties:
+        name:
+          type: string
+        artistId:
+          type: string
+        albumId:
+          type: string
+        duration:
+          type: number
+      required:
+        - name
+        - artistId
+        - albumId
+        - duration
+    Track:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        artistId:
+          type: string
+        albumId:
+          type: string
+        duration:
+          type: number
+      required:
+        - id
+        - name
+        - artistId
+        - albumId
+        - duration
     UpdateTrackDto:
       type: object
-      properties: {}
+      properties:
+        name:
+          type: string
+        artistId:
+          type: string
+        albumId:
+          type: string
+        duration:
+          type: number
+      required:
+        - name
+        - artistId
+        - albumId
+        - duration
     Favorite:
       type: object
       properties:
