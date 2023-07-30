@@ -81,7 +81,7 @@ export class AlbumController {
     description: 'Album id is invalid (not UUID)',
   })
   @ApiNotFoundResponse({
-    description: 'Album with given id does not found',
+    description: 'Album with given id not found',
   })
   findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     const album = this.albumService.findOne(id);

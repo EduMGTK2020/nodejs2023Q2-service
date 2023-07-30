@@ -69,62 +69,114 @@ paths:
   /artist:
     post:
       operationId: ArtistController_create
+      summary: create new artist
       parameters: []
       requestBody:
         required: true
+        description: Data for new artist
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateArtistDto'
       responses:
         '201':
-          description: ''
+          description: Artist successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Artist'
+        '400':
+          description: Request body does not contain required fields
+      tags:
+        - Artist
     get:
       operationId: ArtistController_findAll
+      summary: get all artists
       parameters: []
       responses:
         '200':
-          description: ''
+          description: Artists successfully getted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Artist'
+      tags:
+        - Artist
   /artist/{id}:
     get:
       operationId: ArtistController_findOne
+      summary: get single artist by id
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of artist
           schema:
             type: string
       responses:
         '200':
-          description: ''
+          description: Artist successfully getted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Artist'
+        '400':
+          description: Artist id is invalid (not UUID)
+        '404':
+          description: Artist with given id not found
+      tags:
+        - Artist
     put:
       operationId: ArtistController_update
+      summary: update artist info
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of artist
           schema:
             type: string
       requestBody:
         required: true
+        description: Data for update album
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateArtistDto'
       responses:
         '200':
-          description: ''
+          description: Artist successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Artist'
+        '400':
+          description: Artist id is invalid (not UUID)
+        '404':
+          description: Artist with given id not found
+      tags:
+        - Artist
     delete:
       operationId: ArtistController_remove
+      summary: delete artist
       parameters:
         - name: id
           required: true
           in: path
+          description: Id of artist
           schema:
             type: string
       responses:
         '204':
-          description: ''
+          description: Artist successfully deleted
+        '400':
+          description: Artist id is invalid (not UUID)
+        '404':
+          description: Artist with given id not found
+      tags:
+        - Artist
   /album:
     post:
       operationId: AlbumController_create
@@ -184,7 +236,7 @@ paths:
         '400':
           description: Album id is invalid (not UUID)
         '404':
-          description: Album with given id does not found
+          description: Album with given id not found
       tags:
         - Album
     put:
@@ -390,10 +442,37 @@ components:
       properties: {}
     CreateArtistDto:
       type: object
-      properties: {}
+      properties:
+        name:
+          type: string
+        grammy:
+          type: boolean
+      required:
+        - name
+        - grammy
+    Artist:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        grammy:
+          type: boolean
+      required:
+        - id
+        - name
+        - grammy
     UpdateArtistDto:
       type: object
-      properties: {}
+      properties:
+        name:
+          type: string
+        grammy:
+          type: boolean
+      required:
+        - name
+        - grammy
     CreateAlbumDto:
       type: object
       properties:
