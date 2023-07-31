@@ -98,6 +98,8 @@ paths:
                 $ref: '#/components/schemas/User'
         '400':
           description: User id is invalid (not UUID)
+        '403':
+          description: Old password is wrong
         '404':
           description: User with given id not found
       tags:

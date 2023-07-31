@@ -20,6 +20,7 @@ import {
   ApiParam,
   ApiNotFoundResponse,
   ApiNoContentResponse,
+  ApiForbiddenResponse,
 } from '@nestjs/swagger';
 
 import { UserService } from './user.service';
@@ -113,6 +114,7 @@ export class UserController {
     description: 'User id is invalid (not UUID)',
   })
   @ApiNotFoundResponse({ description: 'User with given id not found' })
+  @ApiForbiddenResponse({ description: 'Old password is wrong' })
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() updateUserDto: UpdatePasswordDto,
