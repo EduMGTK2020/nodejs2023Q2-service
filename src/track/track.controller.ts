@@ -64,7 +64,7 @@ export class TrackController {
   @ApiNotFoundResponse({
     description: 'Track with given id not found',
   })
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+  findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     const track = this.trackService.findOne(id);
     if (!track) {
       throw new NotFoundException(`Track with id ${id} not found`);
@@ -114,7 +114,7 @@ export class TrackController {
   })
   @ApiNotFoundResponse({ description: 'Track with given id not found' })
   update(
-    @Param('id', new ParseUUIDPipe()) id: string,
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
     @Body() updateTrackDto: UpdateTrackDto,
   ) {
     const track = this.trackService.update(id, updateTrackDto);
@@ -142,7 +142,7 @@ export class TrackController {
   })
   @ApiNotFoundResponse({ description: 'Track with given id not found' })
   @HttpCode(204)
-  remove(@Param('id', new ParseUUIDPipe()) id: string) {
+  remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     return this.trackService.remove(id);
   }
 }

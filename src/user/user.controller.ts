@@ -65,7 +65,7 @@ export class UserController {
   @ApiNotFoundResponse({
     description: 'User with given id not found',
   })
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+  findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     const user = this.userService.findOne(id);
     if (!user) {
       throw new NotFoundException(`User with id ${id} not found`);
@@ -116,7 +116,7 @@ export class UserController {
   @ApiNotFoundResponse({ description: 'User with given id not found' })
   @ApiForbiddenResponse({ description: 'Old password is wrong' })
   update(
-    @Param('id', new ParseUUIDPipe()) id: string,
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
     @Body() updateUserDto: UpdatePasswordDto,
   ) {
     const user = this.userService.update(id, updateUserDto);
@@ -144,7 +144,7 @@ export class UserController {
   })
   @ApiNotFoundResponse({ description: 'User with given id not found' })
   @HttpCode(204)
-  remove(@Param('id', new ParseUUIDPipe()) id: string) {
+  remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     return this.userService.remove(id);
   }
 }

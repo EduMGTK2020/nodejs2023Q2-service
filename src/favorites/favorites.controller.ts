@@ -58,7 +58,9 @@ export class FavoritesController {
   @ApiUnprocessableEntityResponse({
     description: 'Track with given id does not exist',
   })
-  addTrackToFavorites(@Param('id', new ParseUUIDPipe()) id: string) {
+  addTrackToFavorites(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+  ) {
     return this.favoritesService.addTrackToFavorites(id);
   }
 
@@ -82,7 +84,9 @@ export class FavoritesController {
     description: 'Track with given id does not found',
   })
   @HttpCode(204)
-  removeTrackFromFavorites(@Param('id', new ParseUUIDPipe()) id: string) {
+  removeTrackFromFavorites(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+  ) {
     return this.favoritesService.removeTrackFromFavorites(id);
   }
 
@@ -105,7 +109,9 @@ export class FavoritesController {
   @ApiUnprocessableEntityResponse({
     description: 'Album with given id does not exist',
   })
-  addAlbumToFavorites(@Param('id', new ParseUUIDPipe()) id: string) {
+  addAlbumToFavorites(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+  ) {
     return this.favoritesService.addAlbumToFavorites(id);
   }
 
@@ -129,7 +135,9 @@ export class FavoritesController {
     description: 'Album with given id does not found',
   })
   @HttpCode(204)
-  removeAlbumFromFavorites(@Param('id', new ParseUUIDPipe()) id: string) {
+  removeAlbumFromFavorites(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+  ) {
     return this.favoritesService.removeAlbumFromFavorites(id);
   }
 
@@ -152,7 +160,9 @@ export class FavoritesController {
   @ApiUnprocessableEntityResponse({
     description: 'Artist with given id does not exist',
   })
-  addArtistToFavorites(@Param('id', new ParseUUIDPipe()) id: string) {
+  addArtistToFavorites(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+  ) {
     return this.favoritesService.addArtistToFavorites(id);
   }
 
@@ -176,7 +186,9 @@ export class FavoritesController {
     description: 'Artist with given id does not found',
   })
   @HttpCode(204)
-  removeArtistFromFavorites(@Param('id', new ParseUUIDPipe()) id: string) {
+  removeArtistFromFavorites(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+  ) {
     return this.favoritesService.removeArtistFromFavorites(id);
   }
 }

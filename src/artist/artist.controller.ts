@@ -64,7 +64,7 @@ export class ArtistController {
   @ApiNotFoundResponse({
     description: 'Artist with given id not found',
   })
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+  findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     const artist = this.artistService.findOne(id);
     if (!artist) {
       throw new NotFoundException(`Artist with id ${id} not found`);
@@ -114,7 +114,7 @@ export class ArtistController {
   })
   @ApiNotFoundResponse({ description: 'Artist with given id not found' })
   update(
-    @Param('id', new ParseUUIDPipe()) id: string,
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
     @Body() updateArtistDto: UpdateArtistDto,
   ) {
     const artist = this.artistService.update(id, updateArtistDto);
@@ -142,7 +142,7 @@ export class ArtistController {
   })
   @ApiNotFoundResponse({ description: 'Artist with given id not found' })
   @HttpCode(204)
-  remove(@Param('id', new ParseUUIDPipe()) id: string) {
+  remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     return this.artistService.remove(id);
   }
 }
