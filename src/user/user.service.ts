@@ -73,6 +73,5 @@ export class UserService {
       });
     }
     this.Users.splice(indexUser, 1);
-    return;
   }
 }

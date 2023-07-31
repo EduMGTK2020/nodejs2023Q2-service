@@ -55,6 +55,5 @@ export class TrackService {
     if (index != -1) {
       this.db.favorites.tracks.splice(index, 1);
     }
-    return;
   }
 }

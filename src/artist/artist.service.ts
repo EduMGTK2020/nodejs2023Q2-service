@@ -68,7 +68,5 @@ export class ArtistService {
     if (index != -1) {
       this.db.favorites.artists.splice(index, 1);
     }
-
-    return;
   }
 }

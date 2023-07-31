@@ -61,7 +61,5 @@ export class AlbumService {
     if (index != -1) {
       this.db.favorites.albums.splice(index, 1);
     }
-
-    return;
   }
 }
