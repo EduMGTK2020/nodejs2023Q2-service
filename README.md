@@ -1,29 +1,31 @@
+## Instructions for Part2
+
 ## Steps to get checked:
 
 - Clone repo and checkout to the **part1** branch
 - Install dependencies: **npm i**
 - Create .env file (based on .env.example): ./.env - (if you need, default port 4000)
-- Start server: **npm run start**  
+- Start server: **npm run start**
 - For run linter: **npm run lint**
 - For run tests: **npm run test**
-- For view OpenAPI documentation: open in your browser http://localhost:4000/doc/ 
+- For view OpenAPI documentation: open in your browser http://localhost:4000/doc/
 
- **Attention! Before run tests, start the server in another terminal window**
+  **Attention! Before run tests, start the server in another terminal window**
 
 ## Basic Scope
 
 - [x] **+10** The repository with the application contains a `Readme.md` file containing detailed instructions for installing, running and using the application
-- [x]  **+10** The application code that worked with `Users` instance divided into modules according to to its purpose and Nest.js architecture conventions (work with request and response in controller, business logic in service, etc.)
-- [x]  **+10** The application code that worked with `Tracks` instance divided into modules according to to its purpose and Nest.js architecture conventions (work with request and response in controller, business logic in service, etc.)
-- [x]  **+10** The application code that worked with `Albums` instance divided into modules according to to its purpose and Nest.js architecture conventions (work with request and response in controller, business logic in service, etc.)
-- [x]  **+10** The application code that worked with `Artists` instance divided into modules according to to its purpose and Nest.js architecture conventions (work with request and response in controller, business logic in service, etc.)
-- [x]  **+10** The application code that worked with `Favorites` instance divided into modules according to to its purpose and Nest.js architecture conventions (work with request and response in controller, business logic in service, etc.)
-- [x]  **+10** For each successfully passed test
+- [x] **+10** The application code that worked with `Users` instance divided into modules according to to its purpose and Nest.js architecture conventions (work with request and response in controller, business logic in service, etc.)
+- [x] **+10** The application code that worked with `Tracks` instance divided into modules according to to its purpose and Nest.js architecture conventions (work with request and response in controller, business logic in service, etc.)
+- [x] **+10** The application code that worked with `Albums` instance divided into modules according to to its purpose and Nest.js architecture conventions (work with request and response in controller, business logic in service, etc.)
+- [x] **+10** The application code that worked with `Artists` instance divided into modules according to to its purpose and Nest.js architecture conventions (work with request and response in controller, business logic in service, etc.)
+- [x] **+10** The application code that worked with `Favorites` instance divided into modules according to to its purpose and Nest.js architecture conventions (work with request and response in controller, business logic in service, etc.)
+- [x] **+10** For each successfully passed test
 
 ## Advanced Scope
-- [x]  **+10** PORT value is stored into `.env` file
-- [x]  **+20** OpenAPI spec in `doc` folder corresponds with assignment
 
+- [x] **+10** PORT value is stored into `.env` file
+- [x] **+20** OpenAPI spec in `doc` folder corresponds with assignment
 
 # Home Library Service
 
