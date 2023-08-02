@@ -4,7 +4,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: app.Dockerfile
     image: edumgtk2020/node-home-lib-service-app:latest  
     restart: unless-stopped
     env_file: .env  
