@@ -26,29 +26,29 @@ services:
     restart: unless-stopped
     env_file: .env
     ports:
-      - 5432:5432
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
       - postgres:/var/lib/postgresql/data
     networks:
       app-network:
         ipv4_address: 192.168.100.101
 
-  db-ui:
-    image: dpage/pgadmin4:7.5
-    environment:
-      PGADMIN_DEFAULT_EMAIL: 'edu@544062.ru'
-      PGADMIN_DEFAULT_PASSWORD: 'edumgtk2020'
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-    volumes:
-      - ./data/pgadmin:/var/lib/pgadmin
-    ports:
-      - '5050:80'
-    restart: unless-stopped
-    networks:
-      app-network:
-        ipv4_address: 192.168.100.102
-    depends_on:
-      - db
+  # db-ui:
+  #   image: dpage/pgadmin4:7.5
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: 'edu@544062.ru'
+  #     PGADMIN_DEFAULT_PASSWORD: 'edumgtk2020'
+  #     PGADMIN_CONFIG_SERVER_MODE: 'False'
+  #   volumes:
+  #     - ./data/pgadmin:/var/lib/pgadmin
+  #   ports:
+  #     - '5050:80'
+  #   restart: unless-stopped
+  #   networks:
+  #     app-network:
+  #       ipv4_address: 192.168.100.102
+  #   depends_on:
+  #     - db
 
 volumes:
   postgres:
