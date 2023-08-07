@@ -10,27 +10,17 @@ import { FavoritesModule } from './favorites/favorites.module';
 import { DbService } from './db/db.service';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './user/entities/user.entity';
+import { dataSourceOptions } from 'db/data-source';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    TypeOrmModule.forRoot(dataSourceOptions),
     UserModule,
     ArtistModule,
     AlbumModule,
     TrackModule,
     FavoritesModule,
-
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.POSTGRES_HOST,
-      port: Number(process.env.POSTGRES_PORT),
-      username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD,
-      database: process.env.POSTGRES_DB,
-      entities: [User],
-      synchronize: true,
-    }),
   ],
   controllers: [AppController],
   providers: [AppService, DbService],
