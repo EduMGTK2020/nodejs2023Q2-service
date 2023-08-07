@@ -15,4 +15,4 @@ ENV POSTGRES_DB=$POSTGRES_DB
 #RUN chmod a+r /docker-entrypoint-initdb.d/init.sql
 
 # Expose PostgreSQL port
-EXPOSE 5432
+# EXPOSE 5432
