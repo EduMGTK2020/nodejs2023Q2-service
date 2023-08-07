@@ -14,7 +14,7 @@ export class FavoritesService {
   constructor(
     private readonly trackService: TrackService,
     // private readonly albumService: AlbumService,
-    private readonly artistService: ArtistService,
+    // private readonly artistService: ArtistService,
     private readonly dbService: DbService,
   ) {}
 
@@ -48,14 +48,14 @@ export class FavoritesService {
   }
 
   addArtistToFavorites(id: string) {
-    const artist = this.artistService.findOne(id);
-    if (!artist) {
-      throw new UnprocessableEntityException({
-        message: `Artist with id ${id} doesn't exist`,
-      });
-    }
-    this.Favorites.artists.push(artist);
-    return artist;
+    // const artist = this.artistService.findOne(id);
+    // if (!artist) {
+    //   throw new UnprocessableEntityException({
+    //     message: `Artist with id ${id} doesn't exist`,
+    //   });
+    // }
+    // this.Favorites.artists.push(artist);
+    // return artist;
   }
 
   removeArtistFromFavorites(id: string) {

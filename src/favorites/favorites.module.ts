@@ -12,7 +12,7 @@ import { DbService } from 'src/db/db.service';
     FavoritesService,
     TrackService,
     //AlbumService,
-    ArtistService,
+    //ArtistService,
     DbService,
   ],
 })
