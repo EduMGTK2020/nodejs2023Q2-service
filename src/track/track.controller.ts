@@ -40,8 +40,8 @@ export class TrackController {
     description: 'Tracks successfully getted',
     type: [Track],
   })
-  findAll() {
-    return this.trackService.findAll();
+  async findAll() {
+    return await this.trackService.findAll();
   }
 
   @Get(':id')
@@ -64,8 +64,8 @@ export class TrackController {
   @ApiNotFoundResponse({
     description: 'Track with given id not found',
   })
-  findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
-    const track = this.trackService.findOne(id);
+  async findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    const track = await this.trackService.findOne(id);
     if (!track) {
       throw new NotFoundException(`Track with id ${id} not found`);
     }
@@ -87,8 +87,8 @@ export class TrackController {
   @ApiBadRequestResponse({
     description: 'Request body does not contain required fields',
   })
-  create(@Body() createTrackDto: CreateTrackDto) {
-    return this.trackService.create(createTrackDto);
+  async create(@Body() createTrackDto: CreateTrackDto) {
+    return await this.trackService.create(createTrackDto);
   }
 
   @Put(':id')
@@ -113,15 +113,15 @@ export class TrackController {
     description: 'Track id is invalid (not UUID)',
   })
   @ApiNotFoundResponse({ description: 'Track with given id not found' })
-  update(
+  async update(
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
     @Body() updateTrackDto: UpdateTrackDto,
   ) {
-    const track = this.trackService.update(id, updateTrackDto);
+    const track = this.trackService.findOne(id);
     if (!track) {
       throw new NotFoundException(`Track with id ${id} not found`);
     }
-    return track;
+    return await this.trackService.update(id, updateTrackDto);
   }
 
   @Delete(':id')
@@ -142,7 +142,11 @@ export class TrackController {
   })
   @ApiNotFoundResponse({ description: 'Track with given id not found' })
   @HttpCode(204)
-  remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
-    return this.trackService.remove(id);
+  async remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    const track = this.trackService.findOne(id);
+    if (!track) {
+      throw new NotFoundException(`Track with id ${id} not found`);
+    }
+    return await this.trackService.remove(id);
   }
 }

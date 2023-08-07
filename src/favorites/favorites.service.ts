@@ -12,7 +12,7 @@ import { DbService } from 'src/db/db.service';
 @Injectable()
 export class FavoritesService {
   constructor(
-    private readonly trackService: TrackService,
+    //private readonly trackService: TrackService,
     // private readonly albumService: AlbumService,
     // private readonly artistService: ArtistService,
     private readonly dbService: DbService,
@@ -25,14 +25,14 @@ export class FavoritesService {
   }
 
   addTrackToFavorites(id: string) {
-    const track = this.trackService.findOne(id);
-    if (!track) {
-      throw new UnprocessableEntityException({
-        message: `Track with id ${id} does not exist`,
-      });
-    }
-    this.Favorites.tracks.push(track);
-    return track;
+    // const track = this.trackService.findOne(id);
+    // if (!track) {
+    //   throw new UnprocessableEntityException({
+    //     message: `Track with id ${id} does not exist`,
+    //   });
+    // }
+    // this.Favorites.tracks.push(track);
+    // return track;
   }
 
   removeTrackFromFavorites(id: string) {

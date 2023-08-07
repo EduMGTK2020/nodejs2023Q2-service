@@ -10,7 +10,7 @@ import { DbService } from 'src/db/db.service';
   controllers: [FavoritesController],
   providers: [
     FavoritesService,
-    TrackService,
+    //TrackService,
     //AlbumService,
     //ArtistService,
     DbService,
