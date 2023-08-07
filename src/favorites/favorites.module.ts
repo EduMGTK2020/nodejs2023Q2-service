@@ -11,7 +11,7 @@ import { DbService } from 'src/db/db.service';
   providers: [
     FavoritesService,
     TrackService,
-    AlbumService,
+    //AlbumService,
     ArtistService,
     DbService,
   ],

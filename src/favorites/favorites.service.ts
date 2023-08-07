@@ -13,7 +13,7 @@ import { DbService } from 'src/db/db.service';
 export class FavoritesService {
   constructor(
     private readonly trackService: TrackService,
-    private readonly albumService: AlbumService,
+    // private readonly albumService: AlbumService,
     private readonly artistService: ArtistService,
     private readonly dbService: DbService,
   ) {}
@@ -72,14 +72,14 @@ export class FavoritesService {
   }
 
   addAlbumToFavorites(id: string) {
-    const album = this.albumService.findOne(id);
-    if (!album) {
-      throw new UnprocessableEntityException({
-        message: `Album with id ${id} doesn't exist`,
-      });
-    }
-    this.Favorites.albums.push(album);
-    return album;
+    // const album = this.albumService.findOne(id);
+    // if (!album) {
+    //   throw new UnprocessableEntityException({
+    //     message: `Album with id ${id} doesn't exist`,
+    //   });
+    // }
+    // this.Favorites.albums.push(album);
+    // return album;
   }
 
   removeAlbumFromFavorites(id: string) {
@@ -91,6 +91,6 @@ export class FavoritesService {
         message: `Album with id ${id} is not favorite`,
       });
     }
-    this.Favorites.albums.splice(indexAlbum, 1);
+    // this.Favorites.albums.splice(indexAlbum, 1);
   }
 }

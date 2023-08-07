@@ -40,8 +40,8 @@ export class AlbumController {
     description: 'Albums successfully getted',
     type: [Album],
   })
-  findAll() {
-    return this.albumService.findAll();
+  async findAll() {
+    return await this.albumService.findAll();
   }
 
   @Get(':id')
@@ -64,8 +64,8 @@ export class AlbumController {
   @ApiNotFoundResponse({
     description: 'Album with given id not found',
   })
-  findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
-    const album = this.albumService.findOne(id);
+  async findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    const album = await this.albumService.findOne(id);
     if (!album) {
       throw new NotFoundException(`Album with id ${id} not found`);
     }
@@ -87,8 +87,8 @@ export class AlbumController {
   @ApiBadRequestResponse({
     description: 'Request body does not contain required fields',
   })
-  create(@Body() createAlbumDto: CreateAlbumDto) {
-    return this.albumService.create(createAlbumDto);
+  async create(@Body() createAlbumDto: CreateAlbumDto) {
+    return await this.albumService.create(createAlbumDto);
   }
 
   @Put(':id')
@@ -113,15 +113,15 @@ export class AlbumController {
     description: 'Album id is invalid (not UUID)',
   })
   @ApiNotFoundResponse({ description: 'Album with given id not found' })
-  update(
+  async update(
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
     @Body() updateAlbumDto: UpdateAlbumDto,
   ) {
-    const album = this.albumService.update(id, updateAlbumDto);
+    const album = await this.albumService.findOne(id);
     if (!album) {
       throw new NotFoundException(`Album with id ${id} not found`);
     }
-    return album;
+    return await this.albumService.update(id, updateAlbumDto);
   }
 
   @Delete(':id')
@@ -142,7 +142,11 @@ export class AlbumController {
   })
   @ApiNotFoundResponse({ description: 'Album with given id not found' })
   @HttpCode(204)
-  remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
-    return this.albumService.remove(id);
+  async remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    const album = await this.albumService.findOne(id);
+    if (!album) {
+      throw new NotFoundException(`Album with id ${id} not found`);
+    }
+    return await this.albumService.remove(id);
   }
 }
