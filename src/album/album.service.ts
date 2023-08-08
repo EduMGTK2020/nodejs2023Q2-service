@@ -1,9 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 import { v4 as uuidv4 } from 'uuid';
-//import { DbService } from 'src/db/db.service';
-import { Track } from 'src/track/entities/track.entity';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -20,6 +18,9 @@ export class AlbumService {
   async create(createAlbumDto: CreateAlbumDto) {
     const newAlbumDto: Album = {
       id: uuidv4(),
+      // name: createAlbumDto.name,
+      // artistId: createAlbumDto.artistId,
+      // year: createAlbumDto.year,
       ...createAlbumDto,
     };
     // this.Albums.push(newAlbum);

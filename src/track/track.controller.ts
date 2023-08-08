@@ -143,7 +143,7 @@ export class TrackController {
   @ApiNotFoundResponse({ description: 'Track with given id not found' })
   @HttpCode(204)
   async remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
-    const track = this.trackService.findOne(id);
+    const track = await this.trackService.findOne(id);
     if (!track) {
       throw new NotFoundException(`Track with id ${id} not found`);
     }

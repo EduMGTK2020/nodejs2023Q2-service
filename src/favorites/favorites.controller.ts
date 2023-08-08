@@ -35,8 +35,8 @@ export class FavoritesController {
     description: 'Favorites successfully getted',
     type: Favorite,
   })
-  findAll() {
-    return this.favoritesService.findAll();
+  async findAll() {
+    return await this.favoritesService.findAll();
   }
 
   @Post('track/:id')
