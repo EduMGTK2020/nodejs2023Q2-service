@@ -58,10 +58,10 @@ export class FavoritesController {
   @ApiUnprocessableEntityResponse({
     description: 'Track with given id does not exist',
   })
-  addTrackToFavorites(
+  async addTrackToFavorites(
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
   ) {
-    return this.favoritesService.addTrackToFavorites(id);
+    return await this.favoritesService.addTrackToFavorites(id);
   }
 
   @Delete('track/:id')
@@ -84,10 +84,10 @@ export class FavoritesController {
     description: 'Track with given id does not found',
   })
   @HttpCode(204)
-  removeTrackFromFavorites(
+  async removeTrackFromFavorites(
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
   ) {
-    return this.favoritesService.removeTrackFromFavorites(id);
+    return await this.favoritesService.removeTrackFromFavorites(id);
   }
 
   @Post('album/:id')
@@ -109,10 +109,10 @@ export class FavoritesController {
   @ApiUnprocessableEntityResponse({
     description: 'Album with given id does not exist',
   })
-  addAlbumToFavorites(
+  async addAlbumToFavorites(
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
   ) {
-    return this.favoritesService.addAlbumToFavorites(id);
+    return await this.favoritesService.addAlbumToFavorites(id);
   }
 
   @Delete('album/:id')
@@ -135,10 +135,10 @@ export class FavoritesController {
     description: 'Album with given id does not found',
   })
   @HttpCode(204)
-  removeAlbumFromFavorites(
+  async removeAlbumFromFavorites(
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
   ) {
-    return this.favoritesService.removeAlbumFromFavorites(id);
+    return await this.favoritesService.removeAlbumFromFavorites(id);
   }
 
   @Post('artist/:id')
@@ -160,10 +160,10 @@ export class FavoritesController {
   @ApiUnprocessableEntityResponse({
     description: 'Artist with given id does not exist',
   })
-  addArtistToFavorites(
+  async addArtistToFavorites(
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
   ) {
-    return this.favoritesService.addArtistToFavorites(id);
+    return await this.favoritesService.addArtistToFavorites(id);
   }
 
   @Delete('artist/:id')
@@ -186,9 +186,9 @@ export class FavoritesController {
     description: 'Artist with given id does not found',
   })
   @HttpCode(204)
-  removeArtistFromFavorites(
+  async removeArtistFromFavorites(
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
   ) {
-    return this.favoritesService.removeArtistFromFavorites(id);
+    return await this.favoritesService.removeArtistFromFavorites(id);
   }
 }
