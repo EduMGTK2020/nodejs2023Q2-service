@@ -25,5 +25,5 @@ export const dataSourceOptionsForMigration: DataSourceOptions = {
   migrations: ['dist/db/migrations/*.js'],
 };
 
-const dataSource = new DataSource(dataSourceOptionsForMigration);
+const dataSource = new DataSource(dataSourceOptionsForMigration); // for local migrations
 export default dataSource;
