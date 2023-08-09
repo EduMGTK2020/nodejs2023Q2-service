@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: app.Dockerfile
+    image: edumgtk2020/app  
     container_name: app
     restart: unless-stopped
     env_file: .env
@@ -22,6 +23,7 @@ services:
     build:
       context: .
       dockerfile: db.Dockerfile
+    image: edumgtk2020/db  
     container_name: db
     restart: unless-stopped
     env_file: .env
