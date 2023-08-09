@@ -29,6 +29,10 @@ services:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
       - postgres:/var/lib/postgresql/data
+      - logs:/var/log/postgresql
+    
+    # command: ["postgres", "-c", "logging_collector=on", "-c", "log_directory=/logs", "-c", "log_filename=postgresql.log", "-c", "log_statement=all"]
+                
     networks:
       app-network:
         ipv4_address: 192.168.100.101
@@ -36,6 +40,8 @@ services:
 volumes:
   postgres:
     name: data
+  logs:
+    name: logs
 
 networks:
   app-network:

@@ -1,14 +1,11 @@
 import {
   Injectable,
-  Inject,
-  forwardRef,
   UnprocessableEntityException,
   NotFoundException,
 } from '@nestjs/common';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
 import { Favorite } from './entities/favorite.entity';
 import { TrackService } from 'src/track/track.service';
 import { AlbumService } from 'src/album/album.service';
@@ -20,34 +17,26 @@ export class FavoritesService {
     @InjectRepository(Favorite)
     private favoriteRepository: Repository<Favorite>,
 
-    @Inject(forwardRef(() => ArtistService))
     private artistService: ArtistService,
-
-    @Inject(forwardRef(() => AlbumService))
     private albumService: AlbumService,
-
-    @Inject(forwardRef(() => TrackService))
     private trackService: TrackService,
   ) {}
 
-  async createFavorites() {
-    const favorites = this.favoriteRepository.create();
-    return await this.favoriteRepository.save(favorites);
-  }
-
   async getFavorites() {
-    let favorites = await this.favoriteRepository.find({
-      relations: { albums: true, artists: true, tracks: true },
-    });
-
-    if (!favorites.length) {
-      const newFavorites = await this.createFavorites();
-      favorites = await this.favoriteRepository.find({
+    const favorites = await this.favoriteRepository.findOneBy({ id: null });
+    if (favorites) {
+      return await this.favoriteRepository.findOne({
+        where: { id: favorites.id },
+        relations: { albums: true, artists: true, tracks: true },
+      });
+    } else {
+      const newFavorites = this.favoriteRepository.create();
+      await this.favoriteRepository.save(newFavorites);
+      return await this.favoriteRepository.findOne({
         where: { id: newFavorites.id },
         relations: { albums: true, artists: true, tracks: true },
       });
     }
-    return favorites[0];
   }
 
   async findAll() {
