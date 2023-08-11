@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY . .
 
+# for migration in container
 # RUN npm ci && npm cache clean --force
 # CMD ["npm", "run", "start:all"]
 

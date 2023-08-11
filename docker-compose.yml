@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    # image: edumgtk2020/app
+    image: edumgtk2020/app
     build:
       context: .
       dockerfile: app.Dockerfile
@@ -10,16 +10,17 @@ services:
     restart: always
     env_file: .env
     ports:
-      - ${APP_PORT}:${APP_PORT}
+      - ${PORT}:${PORT}
     volumes:
       - ./src:/app/src
     networks:
       app-network:
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
-    # image: edumgtk2020/db
+    image: edumgtk2020/db
     build:
       context: .
       dockerfile: db.Dockerfile
@@ -32,7 +33,11 @@ services:
       - data:/var/lib/postgresql/data
       - logs:/logs
     command: postgres -p $POSTGRES_PORT -c logging_collector=$POSTGRES_LOG -c log_directory=$POSTGRES_LOG_DIR -c log_min_messages=$POSTGRES_LOG_LEVEL
-    
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-p", $POSTGRES_PORT]
+      interval: 5s
+      timeout: 3s
+      retries: 10
     networks:
       app-network:
 
@@ -46,8 +51,6 @@ networks:
   app-network:
     name: intra
     driver: bridge
-    driver_opts:
-      com.docker.network.bridge.enable_icc: 'true'
     ipam:
       driver: default
       config:
