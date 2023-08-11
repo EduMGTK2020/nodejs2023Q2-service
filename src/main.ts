@@ -3,19 +3,19 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-// import * as fs from 'fs';
-// import * as process from 'process';
-// import * as yaml from 'js-yaml';
+import * as fs from 'fs';
+import * as process from 'process';
+import * as yaml from 'js-yaml';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const configService = app.get(ConfigService);
-  const port = configService.get<number>('PORT') || 4000;
+  const port = configService.get<number>('APP_PORT') || 4000;
 
   app.useGlobalPipes(new ValidationPipe());
 
-  //const GEN_DOCS = process.env.GEN_DOCS || 'false';
+  const GEN_DOCS = process.env.GEN_DOCS || 'false';
 
   const config = new DocumentBuilder()
     .setTitle('Home Library Service')
@@ -30,10 +30,10 @@ async function bootstrap() {
     },
   });
 
-  // if (GEN_DOCS === 'true') {
-  //   const yamlDoc = yaml.dump(document, { noRefs: true });
-  //   await fs.promises.writeFile('doc/api.yaml', yamlDoc);
-  // }
+  if (GEN_DOCS === 'true') {
+    const yamlDoc = yaml.dump(document, { noRefs: true });
+    await fs.promises.writeFile('doc/api.yaml', yamlDoc);
+  }
 
   await app.listen(port);
 }

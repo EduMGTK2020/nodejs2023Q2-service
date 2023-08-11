@@ -7,10 +7,9 @@ import { ArtistModule } from './artist/artist.module';
 import { AlbumModule } from './album/album.module';
 import { TrackModule } from './track/track.module';
 import { FavoritesModule } from './favorites/favorites.module';
-import { DbService } from './db/db.service';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { dataSourceOptions } from 'db/data-source';
+import { dataSourceOptions } from 'src/db/data-source';
 
 @Module({
   imports: [
@@ -23,6 +22,6 @@ import { dataSourceOptions } from 'db/data-source';
     FavoritesModule,
   ],
   controllers: [AppController],
-  providers: [AppService, DbService],
+  providers: [AppService],
 })
 export class AppModule {}
