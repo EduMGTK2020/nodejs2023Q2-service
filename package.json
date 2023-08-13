@@ -21,6 +21,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "docker:build": "docker-compose build --no-cache",
     "docker:up": "docker-compose up -d && npm run migration:run",
+    "docker:uplocal": "docker-compose up && npm run migration:run",
     "docker:down": "docker-compose down",
     "docker:clean": "docker-compose down && docker system prune -af && docker volume rm data logs",
     "docker:test": "docker exec -it app npm run test",
