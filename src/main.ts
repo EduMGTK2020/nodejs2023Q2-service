@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-//import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as fs from 'fs';
@@ -10,8 +9,6 @@ import * as yaml from 'js-yaml';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // const configService = app.get(ConfigService);
-  // const port = configService.get<number>('PORT') || 4000;
   const port = process.env.PORT || 4000;
 
   app.useGlobalPipes(new ValidationPipe());

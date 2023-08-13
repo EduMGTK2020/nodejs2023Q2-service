@@ -11,13 +11,13 @@
 - Clone repo and checkout to the **part2** branch
 - Install dependencies: **npm i**
 - Create .env file (based on .env.example): ./.env 
-- Build app and db images, run containers in daemon mode and run migrations: **nmp run docker:up**
-- For tests: **nmp run test**
+- Build app and db images, run containers in daemon mode and run migrations: **npm run docker:up**
+- For tests: **npm run test**
 
 ## Other commands
 
 - For vulnerabilities scanning: **npm run docker:scan**
-- For stop and remove containers - **nmp run docker:down**
+- For stop and remove containers - **npm run docker:down**
 - For full cleanup: **npm run docker:clean** - Be careful - this command will remove ALL images and volumes
 - For build images without running - **npm run docker:build**
 
@@ -25,8 +25,8 @@
 
 - The application container runs in hot-reload mode - you can change the source code in the local ./src folder and the application in the container will restart automatically.
 - All migrations are done locally
-- If you want to change application or database port settings first stop and remove containers - **nmp run docker:down**, make changes in **.env** file and then start again **nmp run docker:up**  
-- You can see the result (running containers and their output) in Docker Desktop. If you want to see the application running in a local terminal, use **nmp run docker:up:local**, but then you will need a second terminal window to run the tests
+- If you want to change application or database port settings first stop and remove containers - **npm run docker:down**, make changes in **.env** file and then start again **npm run docker:up**  
+- You can see the result (running containers and their output) in Docker Desktop. If you want to see the application running in a local terminal, use **npm run docker:uplocal**, but then you will need a second terminal window to run the tests. And you will need to perform manual migrations (**npm run migration:run**) before launching them.
 
 - If during startup or testing you see error messages such as
 ```
