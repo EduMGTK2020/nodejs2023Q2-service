@@ -34,7 +34,7 @@ services:
       - logs:/logs
     command: postgres -p $POSTGRES_PORT -c logging_collector=$POSTGRES_LOG -c log_directory=$POSTGRES_LOG_DIR -c log_min_messages=$POSTGRES_LOG_LEVEL
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres", "-p", $POSTGRES_PORT]
+      test: ['CMD', 'pg_isready', '-U', 'postgres', '-p', $POSTGRES_PORT]
       interval: 5s
       timeout: 3s
       retries: 10
