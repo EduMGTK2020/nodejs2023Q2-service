@@ -32,7 +32,7 @@ services:
     volumes:
       - data:/var/lib/postgresql/data
       - logs:/logs
-    command: postgres -p $POSTGRES_PORT -c logging_collector=$POSTGRES_LOG -c log_directory=$POSTGRES_LOG_DIR -c log_min_messages=$POSTGRES_LOG_LEVEL
+    command: postgres -p $POSTGRES_PORT -c logging_collector=$POSTGRES_LOG -c log_directory=/logs -c log_min_messages=$POSTGRES_LOG_LEVEL
     healthcheck:
       test: ['CMD', 'pg_isready', '-U', 'postgres', '-p', $POSTGRES_PORT]
       interval: 5s
