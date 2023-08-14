@@ -37,7 +37,7 @@ dependency failed to start: container db is unhealthy
 ```
 or something similar, it is most likely that your hardware is not coping with the load. Try full cleanup and restarting everything by stopping all non-test related applications :) 
 
-- You can see the images in the public repo at https://hub.docker.com/repositories/edumgtk2020 If you want to use them for testing (although this is not required by TOR), uncomment lines 5 and 23 in the docker-compose file - then the images will be downloaded from Docker Hub at startup instead of being build locally. 
+- You can see the images in the public repo at https://hub.docker.com/u/edumgtk2020 If you want to use them for testing (although this is not required by TOR), uncomment lines 5 and 23 in the docker-compose file - then the images will be downloaded from Docker Hub at startup instead of being build locally. 
 
 
 
