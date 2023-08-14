@@ -40,8 +40,8 @@ export class ArtistController {
     description: 'Artists successfully getted',
     type: [Artist],
   })
-  findAll() {
-    return this.artistService.findAll();
+  async findAll() {
+    return await this.artistService.findAll();
   }
 
   @Get(':id')
@@ -64,8 +64,8 @@ export class ArtistController {
   @ApiNotFoundResponse({
     description: 'Artist with given id not found',
   })
-  findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
-    const artist = this.artistService.findOne(id);
+  async findOne(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    const artist = await this.artistService.findOne(id);
     if (!artist) {
       throw new NotFoundException(`Artist with id ${id} not found`);
     }
@@ -87,8 +87,8 @@ export class ArtistController {
   @ApiBadRequestResponse({
     description: 'Request body does not contain required fields',
   })
-  create(@Body() createArtistDto: CreateArtistDto) {
-    return this.artistService.create(createArtistDto);
+  async create(@Body() createArtistDto: CreateArtistDto) {
+    return await this.artistService.create(createArtistDto);
   }
 
   @Put(':id')
@@ -113,15 +113,15 @@ export class ArtistController {
     description: 'Artist id is invalid (not UUID)',
   })
   @ApiNotFoundResponse({ description: 'Artist with given id not found' })
-  update(
+  async update(
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
     @Body() updateArtistDto: UpdateArtistDto,
   ) {
-    const artist = this.artistService.update(id, updateArtistDto);
+    const artist = await this.artistService.findOne(id);
     if (!artist) {
       throw new NotFoundException(`Artist with id ${id} not found`);
     }
-    return artist;
+    return await this.artistService.update(id, updateArtistDto);
   }
 
   @Delete(':id')
@@ -142,7 +142,11 @@ export class ArtistController {
   })
   @ApiNotFoundResponse({ description: 'Artist with given id not found' })
   @HttpCode(204)
-  remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
-    return this.artistService.remove(id);
+  async remove(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
+    const artist = await this.artistService.findOne(id);
+    if (!artist) {
+      throw new NotFoundException(`Artist with id ${id} not found`);
+    }
+    return await this.artistService.remove(id);
   }
 }
