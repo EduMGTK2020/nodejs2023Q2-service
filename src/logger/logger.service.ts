@@ -5,30 +5,25 @@ import * as fs from 'fs';
 export class LoggerService extends ConsoleLogger {
   private readonly fileName = 'logs.txt';
 
-  log(message: string) {
-    const logMessage = `[${new Date().toISOString()}] LOG ${message}\n`;
-    fs.appendFile(this.fileName, logMessage, (err) => {
+  logMessage(type: string, message: string) {
+    const messageToLog = `[${new Date().toISOString()}] ${type} ${message}\n`;
+    process.stdout.write(messageToLog);
+    fs.appendFile(this.fileName, messageToLog, (err) => {
       if (err) {
         console.error(err);
       }
     });
+  }
+
+  log(message: string) {
+    this.logMessage('LOG', message);
   }
 
   error(message: string) {
-    const logMessage = `[${new Date().toISOString()}] ERROR ${message}\n`;
-    fs.appendFile(this.fileName, logMessage, (err) => {
-      if (err) {
-        console.error(err);
-      }
-    });
+    this.logMessage('ERROR', message);
   }
 
   warn(message: string) {
-    const logMessage = `[${new Date().toISOString()}] WARN ${message}\n`;
-    fs.appendFile(this.fileName, logMessage, (err) => {
-      if (err) {
-        console.error(err);
-      }
-    });
+    this.logMessage('WARN', message);
   }
 }
