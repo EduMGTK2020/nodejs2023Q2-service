@@ -1,9 +1,11 @@
 import { Injectable, ConsoleLogger, Scope } from '@nestjs/common';
 import * as fs from 'fs';
 
+const logDir = process.env.APP_LOG_DIR || 'logs';
+
 @Injectable({ scope: Scope.REQUEST })
 export class LoggerService extends ConsoleLogger {
-  private readonly fileName = 'logs.txt';
+  private readonly fileName = `./${logDir}/logs.txt`;
 
   logMessage(type: string, message: string) {
     const messageToLog = `[${new Date().toISOString()}] ${type} ${message}\n`;
