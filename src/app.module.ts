@@ -11,6 +11,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from 'src/db/data-source';
 
 import { LoggerService } from './logger/logger.service';
+import { RequestResponseMiddleware } from './logger/req-res.middleware';
 
 @Module({
   imports: [
@@ -25,4 +26,8 @@ import { LoggerService } from './logger/logger.service';
   providers: [AppService, LoggerService],
   exports: [LoggerService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(RequestResponseMiddleware).forRoutes('*');
+  }
+}
