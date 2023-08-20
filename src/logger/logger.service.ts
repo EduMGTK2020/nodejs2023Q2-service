@@ -14,10 +14,16 @@ export class LoggerService extends ConsoleLogger {
     'error.txt',
   );
 
+  private readonly logLevel = +process.env.APP_LOG_LEVEL;
+
   private readonly maxFileSize =
     1024 * ((+process.env.APP_LOG_FILESIZE || 30) - 1);
 
-  logMessage(type: string, message: string) {
+  logMessage(type: string, message: string, level: number) {
+    if (level > this.logLevel) {
+      return;
+    }
+
     const messageToLog = `[${new Date().toISOString()}] ${type} ${message}\n`;
 
     process.stdout.write(messageToLog);
@@ -64,15 +70,16 @@ export class LoggerService extends ConsoleLogger {
     }
   }
 
-  log(message: string, context?: string) {
-    this.logMessage('LOG', message + ' - ' + context);
-  }
-
+  // 0 level
   error(message: string) {
-    this.logMessage('ERROR', message);
+    this.logMessage('ERROR', message, 0);
   }
-
+  // 1 level
   warn(message: string) {
-    this.logMessage('WARN', message);
+    this.logMessage('WARN', message, 1);
+  }
+  // 2 level
+  log(message: string) {
+    this.logMessage('LOG', message, 2);
   }
 }
