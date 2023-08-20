@@ -66,7 +66,7 @@ export class AuthService {
       };
       return await this.login(userDto);
     } catch {
-      throw new ForbiddenException('refreshToken is invalid or expired');
+      throw new ForbiddenException('RefreshToken is invalid or expired');
     }
   }
 }

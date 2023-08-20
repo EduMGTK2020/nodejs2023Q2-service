@@ -3,6 +3,7 @@ import {
   ExecutionContext,
   Injectable,
   UnauthorizedException,
+  ForbiddenException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
@@ -28,18 +29,16 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
 
-    console.log(token);
-
     if (!token) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Token not present in request header');
     }
     try {
       const payload = await this.jwtService.verifyAsync(token, {
         secret: process.env.JWT_SECRET_KEY,
       });
       request['user'] = payload;
-    } catch {
-      throw new UnauthorizedException();
+    } catch (err) {
+      throw new ForbiddenException('Token failed validation - ' + err.message);
     }
     return true;
   }

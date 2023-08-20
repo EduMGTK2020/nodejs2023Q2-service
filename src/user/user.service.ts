@@ -16,25 +16,16 @@ export class UserService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
-    // const newUserDto: User = {
-    //   id: uuidv4(),
-    //   ...createUserDto,
-    //   version: 1,
-    //   createdAt: Date.now(),
-    //   updatedAt: Date.now(),
-    // };
-
-    // const newUser = this.usersRepository.create(newUserDto);
-    // return await this.usersRepository.save(newUser);
-
-    const { password } = createUserDto;
+  async hashPassword(password: string) {
     const salt = await bcrypt.genSalt(+process.env.CRYPT_SALT);
-    const passwordHash = await bcrypt.hash(password, salt);
+    return await bcrypt.hash(password, salt);
+  }
+
+  async create(createUserDto: CreateUserDto) {
     const newUserDto: User = {
       id: uuidv4(),
       ...createUserDto,
-      password: passwordHash,
+      password: await this.hashPassword(createUserDto.password),
       version: 1,
       createdAt: Date.now(),
       updatedAt: Date.now(),
@@ -54,7 +45,7 @@ export class UserService {
 
   async update(id: string, updateUserDto: UpdatePasswordDto) {
     const user = await this.usersRepository.findOneBy({ id });
-    user.password = updateUserDto.newPassword;
+    user.password = await this.hashPassword(updateUserDto.newPassword);
     user.version += 1;
     user.updatedAt = Date.now();
     user.createdAt = Number(user.createdAt); // for typeorm
