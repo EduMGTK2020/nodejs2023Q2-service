@@ -8,6 +8,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+import * as bcrypt from 'bcrypt';
+
 @Injectable()
 export class UserService {
   constructor(
@@ -15,9 +17,24 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
+    // const newUserDto: User = {
+    //   id: uuidv4(),
+    //   ...createUserDto,
+    //   version: 1,
+    //   createdAt: Date.now(),
+    //   updatedAt: Date.now(),
+    // };
+
+    // const newUser = this.usersRepository.create(newUserDto);
+    // return await this.usersRepository.save(newUser);
+
+    const { password } = createUserDto;
+    const salt = await bcrypt.genSalt(+process.env.CRYPT_SALT);
+    const passwordHash = await bcrypt.hash(password, salt);
     const newUserDto: User = {
       id: uuidv4(),
       ...createUserDto,
+      password: passwordHash,
       version: 1,
       createdAt: Date.now(),
       updatedAt: Date.now(),
@@ -46,5 +63,9 @@ export class UserService {
 
   async remove(id: string) {
     await this.usersRepository.delete(id);
+  }
+
+  async findByLogin(login: string) {
+    return await this.usersRepository.findOne({ where: { login } });
   }
 }

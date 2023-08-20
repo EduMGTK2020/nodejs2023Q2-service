@@ -12,6 +12,11 @@ import { dataSourceOptions } from 'src/db/data-source';
 
 import { LoggerService } from './logger/logger.service';
 import { RequestResponseMiddleware } from './logger/req-res.middleware';
+import { AuthModule } from './auth/auth.module';
+
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './auth/auth.guard';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -21,9 +26,18 @@ import { RequestResponseMiddleware } from './logger/req-res.middleware';
     AlbumModule,
     TrackModule,
     FavoritesModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, LoggerService],
+  providers: [
+    AppService,
+    LoggerService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+    JwtService,
+  ],
   exports: [LoggerService],
 })
 export class AppModule {

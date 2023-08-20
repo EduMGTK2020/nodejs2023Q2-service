@@ -9,16 +9,14 @@ export class RequestResponseMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const { method, body, originalUrl, params } = req;
 
-    const message = `Req: ${method} ${originalUrl} - ${JSON.stringify(
+    const message = `Req - method:${method} - url:${originalUrl} - params:${JSON.stringify(
       params,
-    )} - ${JSON.stringify(body)}`;
+    )} - body:${JSON.stringify(body)}`;
     this.Logger.log(message);
 
     res.on('finish', () => {
       const { statusCode } = res;
-      const message = `Res: ${method} ${originalUrl} - ${statusCode} - ${JSON.stringify(
-        body,
-      )} `;
+      const message = `Res - method:${method} - url:${originalUrl} - status:${statusCode}`;
       this.Logger.log(message);
     });
     next();
