@@ -8,7 +8,7 @@ import { LoggerService } from './logger.service';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
-  private readonly logger = new LoggerService(HttpExceptionFilter.name);
+  constructor(private readonly logger: LoggerService) {}
 
   catch(exception: HttpException, host: ArgumentsHost) {
     const response = host.switchToHttp().getResponse();

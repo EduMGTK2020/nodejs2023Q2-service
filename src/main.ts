@@ -14,8 +14,9 @@ async function bootstrap() {
     bufferLogs: true,
   });
 
-  app.useLogger(new LoggerService());
-  app.useGlobalFilters(new HttpExceptionFilter());
+  const logger = new LoggerService();
+  app.useLogger(logger);
+  app.useGlobalFilters(new HttpExceptionFilter(logger));
 
   process.on('uncaughtException', (err: Error) => {
     new LoggerService().error(`${err.message}`);
