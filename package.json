@@ -25,6 +25,7 @@
     "docker:down": "docker-compose down",
     "docker:clean": "docker-compose down && docker system prune -af && docker volume rm data logs",
     "docker:test": "docker exec -it app npm run test",
+    "docker:test:auth": "docker exec -it app npm run test:auth",
     "docker:scan": "docker scout cves edumgtk2020/app && docker scout cves edumgtk2020/db",
     "typeorm": "npm run build && npx typeorm -d dist/db/data-source.js",
     "migration:show": "npm run typeorm -- migration:show",

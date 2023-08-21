@@ -4,18 +4,10 @@ import * as path from 'path';
 
 @Injectable({ scope: Scope.REQUEST })
 export class LoggerService extends ConsoleLogger {
-  private readonly fileToLogName = path.join(
-    `./${process.env.APP_LOG_DIR || 'logs'}`,
-    'log.txt',
-  );
-
-  private readonly fileToErrorName = path.join(
-    `./${process.env.APP_LOG_DIR || 'logs'}`,
-    'error.txt',
-  );
+  private readonly fileToLogName = path.join('./logs', 'log.txt');
+  private readonly fileToErrorName = path.join('./logs', 'error.txt');
 
   private readonly logLevel = +process.env.APP_LOG_LEVEL;
-
   private readonly maxFileSize =
     1024 * ((+process.env.APP_LOG_FILESIZE || 30) - 1);
 
