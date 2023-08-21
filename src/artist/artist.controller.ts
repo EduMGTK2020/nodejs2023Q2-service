@@ -20,6 +20,7 @@ import {
   ApiParam,
   ApiNotFoundResponse,
   ApiNoContentResponse,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 
 import { ArtistService } from './artist.service';
@@ -27,6 +28,7 @@ import { CreateArtistDto } from './dto/create-artist.dto';
 import { UpdateArtistDto } from './dto/update-artist.dto';
 import { Artist } from './entities/artist.entity';
 
+@ApiBearerAuth()
 @Controller('artist')
 @ApiTags('Artist')
 export class ArtistController {

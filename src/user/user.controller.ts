@@ -23,7 +23,6 @@ import {
   ApiNoContentResponse,
   ApiForbiddenResponse,
   ApiBearerAuth,
-  ApiSecurity,
 } from '@nestjs/swagger';
 
 import { UserService } from './user.service';
@@ -38,7 +37,6 @@ export const stripPassword = (user: User) => {
   return clone;
 };
 
-@ApiSecurity('bearerAuth')
 @ApiBearerAuth()
 @Controller('user')
 @ApiTags('User')
