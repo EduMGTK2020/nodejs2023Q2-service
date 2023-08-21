@@ -20,6 +20,7 @@ import {
   ApiParam,
   ApiNotFoundResponse,
   ApiNoContentResponse,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 
 import { TrackService } from './track.service';
@@ -27,6 +28,7 @@ import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
 import { Track } from './entities/track.entity';
 
+@ApiBearerAuth()
 @Controller('track')
 @ApiTags('Track')
 export class TrackController {

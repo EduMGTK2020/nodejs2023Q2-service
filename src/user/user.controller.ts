@@ -22,19 +22,22 @@ import {
   ApiNotFoundResponse,
   ApiNoContentResponse,
   ApiForbiddenResponse,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import * as bcrypt from 'bcrypt';
 
-const stripPassword = (user: User) => {
+export const stripPassword = (user: User) => {
   const clone = Object.assign({}, user);
   delete clone.password;
   return clone;
 };
 
+@ApiBearerAuth()
 @Controller('user')
 @ApiTags('User')
 export class UserController {
@@ -133,7 +136,13 @@ export class UserController {
         message: `User with id ${id} is not found`,
       });
     }
-    if (user.password !== updateUserDto.oldPassword) {
+
+    const isPasswordValid = await bcrypt.compare(
+      updateUserDto.oldPassword,
+      user.password,
+    );
+
+    if (!isPasswordValid) {
       throw new ForbiddenException(
         `Old password is wrong for user with id ${id}`,
       );

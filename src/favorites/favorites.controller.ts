@@ -19,6 +19,7 @@ import {
   ApiNotFoundResponse,
   ApiNoContentResponse,
   ApiUnprocessableEntityResponse,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 
 import { FavoritesService } from './favorites.service';
@@ -27,6 +28,7 @@ import { TrackService } from 'src/track/track.service';
 import { ArtistService } from 'src/artist/artist.service';
 import { AlbumService } from 'src/album/album.service';
 
+@ApiBearerAuth()
 @Controller('favs')
 @ApiTags('Favorites')
 export class FavoritesController {

@@ -20,6 +20,7 @@ import {
   ApiParam,
   ApiNotFoundResponse,
   ApiNoContentResponse,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 
 import { AlbumService } from './album.service';
@@ -27,6 +28,7 @@ import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 import { Album } from './entities/album.entity';
 
+@ApiBearerAuth()
 @Controller('album')
 @ApiTags('Album')
 export class AlbumController {

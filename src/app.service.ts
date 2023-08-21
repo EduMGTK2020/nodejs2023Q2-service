@@ -1,13 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { Controller } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { LoggerService } from './logger/logger.service';
 
 @Injectable()
-@ApiTags('Hello1')
-@Controller('demo')
 export class AppService {
-  @ApiTags('Hello')
+  constructor(private readonly logger: LoggerService) {}
   getHello(): string {
+    // for check uncomment lines
+
+    // for test uncaughtException
+    // setTimeout(() => {
+    //   throw new Error('Test for uncaughtException');
+    // }, 100);
+
+    // for unhandledRejection
+    // Promise.reject(new Error('Test for unhandledRejection'));
+
+    // for test warn log level uncomment line below
+    // this.logger.warn('Test WARN log level');
+
     return 'Hello World!';
   }
 }
